@@ -1,0 +1,60 @@
+<form id="pagerForm" method="post" action="{% url "baidu_showtop1000" %}">
+    {% csrf_token %}
+	<input type="hidden" name="keyword" value="{{ keyword }}" />
+	<input type="hidden" name="pageNum" value="{{ paginator.currentpage }}" />
+	<input type="hidden" name="numPerPage" value="{{ paginator.per_page }}" />
+</form>
+
+<div class="pageHeader">
+	<form onsubmit="return navTabSearch(this);" action="{% url "baidu_showtop1000" %}" method="post">
+    {% csrf_token %}
+	<div class="searchBar">
+		<div class="subBar">
+            <div style="margin-left: 20px; display: inline-block;">演员姓名：<input type="text" name="keyword" value="{{ keyword }}" /></div>
+			<input type="submit" value="搜索" />
+		</div>
+	</div>
+	</form>
+</div>
+<div class="pageContent">
+	<div class="panelBar">
+		<ul class="toolBar">
+			<li><a class="add" href="demo_page4.html" target="navTab"><span>添加</span></a></li>
+			<li><a class="delete" href="demo/common/ajaxDone.html?uid={sid_user}" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+			<li><a class="edit" href="demo_page4.html?uid={sid_user}" target="navTab"><span>修改</span></a></li>
+			<li class="line">line</li>
+			<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport" targetType="navTab" title="实要导出这些记录吗?"><span>导出EXCEL</span></a></li>
+		</ul>
+	</div>
+	<table class="table" width="100%" layoutH="115">
+        <thead>
+            <tr>
+				<th width="60" class="center">序号</th>
+				<th width="100" class="center">姓名</th>
+				<th width="500" class="center">简介</th>
+			</tr>
+		</thead>
+        <tbody>
+        {% for actor in actors %}
+            <tr target="sid_user" rel="1">
+				<td  class="center">{{ forloop.counter|add:pagestart }}</td>
+				<td  class="center">{{ actor.name }}</td>
+				<td>{{ actor.introduce }}</td>
+			</tr>
+        {% endfor %}
+        </tbody>
+	</table>
+	<div class="panelBar">
+		<div class="pages">
+			<span>显示</span>
+			<select class="combox" name="numPerPage" onchange="navTabPageBreak({numPerPage:this.value})">
+				<option value="20" {% if paginator.per_page == 20 %}selected="selected"{% endif %}>20</option>
+				<option value="50" {% if paginator.per_page == 50 %}selected="selected"{% endif %}>50</option>
+				<option value="100" {% if paginator.per_page == 100 %}selected="selected"{% endif %}>100</option>
+			</select>
+			<span>条，共{{ paginator.count }}条</span>
+		</div>
+
+		<div class="pagination" targetType="navTab" totalCount="{{ paginator.count }}" numPerPage="{{ paginator.per_page }}" pageNumShown="10" currentPage="{{ paginator.currentpage }}"></div>
+	</div>
+</div>
