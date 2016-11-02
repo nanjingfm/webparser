@@ -25,7 +25,7 @@ class PiaohuaCrawlSpider(CrawlSpider):
         movie_list = sel.xpath("//div[@id='nml']//dl")
         for movie in movie_list:
             item = PiaohuaItem()
-            item['link_url'] = movie.xpath("dt/a/@href").extract();
+            item['link_url'] = movie.xpath("dt/a/@href").extract()
             items.append(item)
         return items
 
