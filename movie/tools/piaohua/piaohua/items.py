@@ -12,7 +12,8 @@ class PiaohuaItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     name = scrapy.Field()               # jujide mingcheng
-    update_time = scrapy.Field()        # gengxin shijian
-    pic_url = scrapy.Field()            # tupian de dizhi
-    link_url = scrapy.Field()           # juji de url
+    updatetime = scrapy.Field()        # gengxin shijian
+    imageurl = scrapy.Field()            # tupian de dizhi
+    linkurl = scrapy.Field()           # juji de url
+    downloadlink = scrapy.Field()           # juji de url
     type = scrapy.Field()               # fenlei
